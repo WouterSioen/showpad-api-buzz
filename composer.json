@@ -1,0 +1,24 @@
+{
+    "name": "woutersioen/showpad-api-buzz",
+    "description": "Buzz adapter for the Showpad API client",
+    "type": "library",
+    "homepage": "https://github.com/woutersioen/showpad-api-buzz",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Wouter Sioen",
+            "email": "wouter@sumocoders.be",
+            "homepage": "http://woutersioen.be",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "turanct/showpad-api": "~1.0",
+        "kriswallsmith/buzz": "^0.15.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "Showpad": "src"
+        }
+    }
+}
