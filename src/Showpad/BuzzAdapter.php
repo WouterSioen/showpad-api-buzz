@@ -33,6 +33,13 @@ final class BuzzAdapter implements Adapter
      */
     public function request($method, $url, array $parameters = null, array $headers = null)
     {
+        // add query parameters to the url if needed
+        if (isset($parameters['query']) && is_array($parameters['query'])) {
+            $query = parse_url($url, PHP_URL_QUERY);
+
+            $url .= ($query === null ? '?' : '&') . http_build_query($parameters['query']);
+        }
+
         $response = $this->browser->submit($url, $parameters, $method, $headers);
 
         return json_decode($response->getContent(), true);
