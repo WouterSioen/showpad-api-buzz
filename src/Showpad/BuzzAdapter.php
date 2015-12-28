@@ -3,6 +3,7 @@
 namespace Showpad;
 
 use Buzz\Browser;
+use Buzz\Message\Form\FormUpload;
 
 final class BuzzAdapter implements Adapter
 {
@@ -38,6 +39,16 @@ final class BuzzAdapter implements Adapter
             $query = parse_url($url, PHP_URL_QUERY);
 
             $url .= ($query === null ? '?' : '&') . http_build_query($parameters['query']);
+        }
+
+        // make sure files are added as a form upload
+        if ($method === 'POST') {
+            foreach ($parameters as $key => $value) {
+                if (is_string($value) && substr($value, 0, 1) == '@') {
+                    $value = ltrim($value, '@');
+                    $parameters[$key] = new FormUpload($value);
+                }
+            }
         }
 
         $response = $this->browser->submit($url, $parameters, $method, $headers);
