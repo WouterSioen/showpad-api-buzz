@@ -51,6 +51,11 @@ final class BuzzAdapter implements Adapter
             }
         }
 
+        // buzz requires us to send an array of parameters instead of null
+        if (empty($parameters)) {
+            $parameters = array();
+        }
+
         $response = $this->browser->submit($url, $parameters, $method, $headers);
 
         return json_decode($response->getContent(), true);
